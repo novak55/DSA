@@ -13,12 +13,43 @@
 //
 
 #include <iostream>
+#include "menu.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Sklad zboží";
+	const int POCET_POLOZEK_MENU = 14;
+	bool konec = true;
+	char volba;
+
+	Menu* menu = new Menu(POCET_POLOZEK_MENU);
+
+	menu->addPolozkuMenu("Pridat polozku do skladu", 'p', 0);
+	menu->addPolozkuMenu("Odebrat polozku ze skaldu", 'o', 1);
+	menu->addPolozkuMenu("Zruseni polozky s danym klicem", 'z', 2);
+	menu->addPolozkuMenu("Vypis prvku s danym klicem", 'v', 3);
+	menu->addPolozkuMenu("Konec", 'k', 4);
+	
+
+	while (konec) {
+		cout << "********** Sklad zbozi **********" << endl;
+		menu->ZobrazitPolozkyMenu();
+		cin >> volba;
+		cout << "---------------------------------" << endl;
+
+		switch (volba) {
+			case 'k':
+			case 'K':
+				konec = false;
+				break;
+			default:
+				cout << "Vase volba nebyla rozpoznana!" << endl;
+		}
+		system("CLS");
+	}
+	cout << "Konec SW";
+	delete menu;
 }
 
 // Spuštění programu: Ctrl+F5 nebo nabídka Ladit > Spustit bez ladění
