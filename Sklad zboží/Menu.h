@@ -13,7 +13,9 @@ private:
 public:
 	Menu(const int pocetPolozekMenu);
 	~Menu();
-	string getPolozkuMenu(int pozice);
+	void getPolozkuMenu(int pozice);
+	void getPopisPolozkyMenu(int pozice);
+	void getPopisPolozkyMenuDleVolby(char volbaPolozky);
 	void SetPopisNaNull();
 	void addPolozkuMenu(string popisPolozky, char volbaPolozky, int pozice);
 	void ZobrazitPolozkyMenu();

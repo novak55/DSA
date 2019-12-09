@@ -1,4 +1,4 @@
-﻿// Sklad zboží.cpp
+﻿// Sklad zboží.cpp - ZADÁNÍ
 // Napište program pro vedení a sledování skladu zboží.
 // Sklad bude reprezentován jako tabulka, jejíž prvky budou obsahovat:
 //	identifikační číslo zboží, název zboží, cenu zboží a počet kusů na skladě.
@@ -12,8 +12,14 @@
 //  - výpočet celkové ceny zboží
 //
 
+/* - diskuse
+	
+*/
+
 #include <iostream>
+#include <string>
 #include "menu.h"
+#include "Sklad.h"
 
 using namespace std;
 
@@ -24,18 +30,25 @@ int main()
 	char volba;
 
 	Menu* menu = new Menu(POCET_POLOZEK_MENU);
+	Sklad* sklad = new Sklad();
 
-	menu->addPolozkuMenu("Pridat polozku do skladu", 'p', 0);
-	menu->addPolozkuMenu("Odebrat polozku ze skaldu", 'o', 1);
-	menu->addPolozkuMenu("Zruseni polozky s danym klicem", 'z', 2);
-	menu->addPolozkuMenu("Vypis prvku s danym klicem", 'v', 3);
-	menu->addPolozkuMenu("Konec", 'k', 4);
+	//	Sklad* sklad = new ....
 	
-
+	menu->addPolozkuMenu("Pridat polozku do skladu", 'P', 0);
+	menu->addPolozkuMenu("Odebrat polozku ze skaldu", 'O', 1);
+	menu->addPolozkuMenu("Zruseni polozky s danym klicem", 'Z', 2);
+	menu->addPolozkuMenu("Vypis prvku s danym klicem", 'V', 3);
+	menu->addPolozkuMenu("zmenit Sklad", 'S', 4);
+	menu->addPolozkuMenu("Konec SW", 'k', 10);
+	
 	while (konec) {
-		cout << "********** Sklad zbozi **********" << endl;
+
+		system("CLS");
+
+		cout << "********** Sklad zbozi **********" << endl << "  pracujete ve skladu: " << sklad->GetNazev() << endl << endl;
 		menu->ZobrazitPolozkyMenu();
 		cin >> volba;
+		menu->getPopisPolozkyMenuDleVolby(volba);
 		cout << "---------------------------------" << endl;
 
 		switch (volba) {
@@ -43,12 +56,27 @@ int main()
 			case 'K':
 				konec = false;
 				break;
+			case 'p':
+			case 'P':
+				break;
+			case 'o':
+			case 'O':
+				break;
+			case 'z':
+			case 'Z':
+				break;
+			case 's':
+			case 'S':
+				sklad->ZmenitSklad();
+				break;
+			case 'v':
+			case 'V':
+				break;
 			default:
 				cout << "Vase volba nebyla rozpoznana!" << endl;
 		}
-		system("CLS");
+		system("PAUSE");
 	}
-	cout << "Konec SW";
 	delete menu;
 }
 

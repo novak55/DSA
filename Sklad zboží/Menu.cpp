@@ -1,12 +1,14 @@
 #include "Menu.h"
 
-
 	string* popis;
 	char* volba;
+	int polozekMenu;
 
 	Menu::Menu(int pocetPolozekMenu) {
-		popis = new string[pocetPolozekMenu];
-		volba = new char[pocetPolozekMenu];
+		polozekMenu = pocetPolozekMenu;
+		popis = new string[polozekMenu];
+		volba = new char[polozekMenu];
+
 		SetPopisNaNull();
 	}
 
@@ -32,15 +34,28 @@
 	}
 
 
-	string Menu::getPolozkuMenu(int pozice) {
-		return volba[pozice] + " - " + popis[pozice];
+	void Menu::getPolozkuMenu(int pozice) {
+		cout << " " << volba[pozice] << " - " << popis[pozice] << endl;
+	}
+
+	void Menu::getPopisPolozkyMenuDleVolby(char volbaPolozky) {
+		for (int i = 0; i < polozekMenu; i++) {
+			if (volba[i] == volbaPolozky) {
+				getPopisPolozkyMenu(i);
+				break;
+			}
+		}
+	}
+
+	void Menu::getPopisPolozkyMenu(int pozice) {
+		cout << popis[pozice] << endl;
 	}
 
 	void Menu::ZobrazitPolozkyMenu() {
 		cout << ("------------- MENU --------------\n");
 		for (int i = 0; i < polozekMenu; i++) {
-			if (popis[i] != "null" )
-				cout << getPolozkuMenu(i) << endl;
+			if (popis[i] != "null")
+				getPolozkuMenu(i);
 		}
 		cout << "---------------------------------\nZvolete moznost z menu:";
 	}
