@@ -148,7 +148,7 @@ void ProductList::PrintList() const
 	Product *pTmp = pHead;
 	while (pTmp != NULL)
 	{
-		printf("Zbozi c.%d; pocet: %d a cena: %d Kc\n", pTmp->cislo, pTmp->pocet, pTmp->cena);
+		printf("Zbozi c.%d; cena: %d Kc; kusu: %d ks\n", pTmp->cislo, pTmp->cena, pTmp->pocet);
 		pTmp = pTmp->pNext;
 	}
 }
