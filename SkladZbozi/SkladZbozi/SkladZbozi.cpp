@@ -3,9 +3,11 @@
 
 #include "pch.h"
 #include <iostream>
-
+#include <fstream>
 #include "ProductList.h"
+#include <string>
 
+using namespace std;
 
 
 int menu()
@@ -19,6 +21,7 @@ int menu()
 	printf("7 ... Spocitat celkovou cenu zbozi\n");
 	printf("8 ... Seradit produkty podle Ev. cisla VZESTUPNE\n");
 	printf("9 ... Seradit produkty podle Ev. cisla SESTUPNE\n");
+	printf("10 ... Nacist data z CSV\n");
 	printf("0 ... KONEC\n\n");
 
 	int volba;
@@ -26,7 +29,7 @@ int menu()
 	{
 		printf("Zadej volbu: ");
 		scanf_s("%d", &volba);
-	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9);
+	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10);
 	return volba;
 }
 
@@ -42,38 +45,6 @@ int main()
 	ProductList * pList = new ProductList();
 	 int pole[][3] = { {2, 20, 1}, {4, 40, 1}, {1, 10, 1},{3, 30, 1},{5, 50, 1} }; // pole vstupnich udaju
 	 int n = 5; // pocet produktu ve vstupnim poli 
-
-//	int pole[][3] = { {1, 10, 1} }; // pole vstupnich udaju
-//	int n = 1; // pocet produktu ve vstupnim poli 
-
-
-
-/*
-		ProductList mList;
-	int pole[][3] = { {1, 10, 1},{2, 20, 1},{3, 30, 1},{4, 40, 1},{5, 50, 1} };
-	mList.MakeList(pole, 5);
-
-	printf("Vypis puvodniho seznamu:\n");
-	mList.PrintList();
-	printf("\n\n");
-
-	printf("Vypis po pridani do seznamu:\n");
-	mList.Add(6, 60, 1);
-	mList.PrintList();
-	printf("\n\n");
-
-
-	printf("Vypis po odebrani ze seznamu:\n");
-	mList.Remove(7);
-	mList.PrintList();
-	printf("\n\n");
-
-	printf("Celkova suma ceny zbozi na sklade:\n");
-	printf("SUMA: %d Kc\n", mList.CountSummary());
-	printf("\n\n");
-*/
-
-
 
 	int volba;
 	do
@@ -182,10 +153,23 @@ int main()
 			break;
 		case 9:
 			// serazeni zbozi podle ...
-		{
-			pList->SortByKeyDes();
-		}
-		break;
+			{
+				pList->SortByKeyDes();
+			}
+			break;
+		case 10:
+			// import dat z CSV souboru ...
+			{
+				if (!seznamNacten) {
+					pList->ImportData();
+					seznamNacten = true;
+					printf("Seznam produktu byl uspesne nacten. \n\n");
+				}
+				else {
+					printf("Seznam produktu nelze nacist podruhe! \n\n");
+				}
+			}
+			break;
 		}
 
 	} while (volba != 0);

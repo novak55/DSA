@@ -37,5 +37,8 @@ public:
 
 	// seradi seznam zbozi sestupne podle ev. cisla
 	void SortByKeyDes();
+
+	// naimportuje data z externiho souboru
+	bool ImportData();
 };
 

@@ -2,6 +2,10 @@
 #include "ProductList.h"
 #include <stddef.h>
 #include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
 
 
 ProductList::ProductList()
@@ -210,4 +214,32 @@ void ProductList::SortByKeyDes()
 			}
 		}
 	}
+}
+
+bool ProductList::ImportData()
+{
+	ifstream dataInput("data.csv");
+	if (!dataInput.is_open()) {
+		cout << "Chyba: Soubor neotevren!" << '\n';
+		return false;
+	}
+	string cisloS;
+	string cenaS;
+	string pocetS;
+	while (dataInput.good()) {
+		int soucet = 0;
+		getline(dataInput, cisloS, ',');
+		getline(dataInput, cenaS, ',');
+		getline(dataInput, pocetS, '\n');
+
+		cout << "CISLO: " << cisloS << '\n';
+		cout << "CENA: " << cenaS << '\n';
+		cout << "POCET: " << pocetS << '\n';
+		soucet = stoi(cenaS) * stoi(pocetS);
+		cout << "SOUCET: " << soucet << '\n';
+		cout << "---------------" << '\n';
+		Add(stoi(cisloS), stoi(cenaS), stoi(pocetS));
+	}
+	dataInput.close();
+	return true;
 }
