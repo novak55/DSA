@@ -31,5 +31,11 @@ public:
 
 	// spocita celkovou hodnotu zbozi na sklade
 	int CountSummary();
+
+	// seradi seznam zbozi vzestupne podle ev. cisla
+	void SortByKeyAsc();
+
+	// seradi seznam zbozi sestupne podle ev. cisla
+	void SortByKeyDes();
 };
 

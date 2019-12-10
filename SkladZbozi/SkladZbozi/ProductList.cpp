@@ -179,3 +179,35 @@ int ProductList::CountSummary()
 
 	return summary;
 }
+
+void ProductList::SortByKeyAsc()
+{
+	Product * j;
+	Product * i = pHead;
+
+	for (i = pHead; i != NULL; i = i->pNext) {
+		for (j = i->pNext; j != NULL; j = j->pNext) {
+			if (i->cislo > j->cislo) {
+				swap(i->cislo, j->cislo);
+				swap(i->cena, j->cena);
+				swap(i->pocet, j->pocet);
+			}
+		}
+	}
+}
+
+void ProductList::SortByKeyDes()
+{
+	Product * j;
+	Product * i = pHead;
+
+	for (i = pHead; i != NULL; i = i->pNext) {
+		for (j = i->pNext; j != NULL; j = j->pNext) {
+			if (i->cislo < j->cislo) {
+				swap(i->cislo, j->cislo);
+				swap(i->cena, j->cena);
+				swap(i->pocet, j->pocet);
+			}
+		}
+	}
+}
