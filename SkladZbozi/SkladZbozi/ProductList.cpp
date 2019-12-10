@@ -143,6 +143,20 @@ bool ProductList::EditProduct(int cislo, int cena, int pocet)
 	return false;
 }
 
+bool ProductList::FindProduct(int cislo)
+{
+	Product *pTmp = pHead; // ukazatel na aktualni (nasledujici) prvek
+	while ((pTmp != NULL))
+	{
+		if (pTmp->cislo == cislo) {
+			printf("Zbozi c.%d; cena: %d Kc; kusu: %d ks\n", pTmp->cislo, pTmp->cena, pTmp->pocet);
+			return true;
+		}
+		pTmp = pTmp->pNext;
+	}
+	return false;
+}
+
 void ProductList::PrintList() const
 {
 	Product *pTmp = pHead;

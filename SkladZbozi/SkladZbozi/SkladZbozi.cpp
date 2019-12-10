@@ -14,9 +14,10 @@ int menu()
 	printf("2 ... Vlozit novy zaznam\n");
 	printf("3 ... Upravit zaznam\n");
 	printf("4 ... Odebrat zaznam\n");
-	printf("5 ... Vytisknou seznam produktu\n");
-	printf("6 ... Spocitat celkovou cenu zbozi ...\n");
-	printf("7 ... Seradit produkty podle ...\n");
+	printf("5 ... Najit zbozi\n");
+	printf("6 ... Vytisknou seznam produktu\n");
+	printf("7 ... Spocitat celkovou cenu zbozi ...\n");
+	printf("8 ... Seradit produkty podle ...\n");
 	printf("0 ... KONEC\n\n");
 
 	int volba;
@@ -24,7 +25,7 @@ int menu()
 	{
 		printf("Zadej volbu: ");
 		scanf_s("%d", &volba);
-	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7);
+	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8);
 	return volba;
 }
 
@@ -142,6 +143,20 @@ int main()
 			break;
 
 		case 5:
+			// vyhledat zbozi cislo
+		{
+			printf("Zadejte cislo hledaneho produktu: \n");
+			scanf_s("%d", &cislo);
+			printf("Vysledek hledani: \n");
+			if (!pList->FindProduct(cislo)) {
+				printf("Hledane zbozi nebylo nalezeno! \n");
+			}
+			
+			printf("\n\n");
+		}
+		break;
+
+		case 6:
 			// tisk seznamu zbozi
 			{
 				printf("\nSEZNAM ZBOZI \n");
@@ -150,7 +165,7 @@ int main()
 			}
 			break;
 
-		case 6:
+		case 7:
 			// vypocet celkove ceny zbozi
 			{
 				printf("Celkova suma ceny zbozi na sklade:\n");
@@ -158,7 +173,7 @@ int main()
 				printf("\n\n");
 			}
 			break;
-			case 7:
+		case 8:
 				// serazeni zbozi podle ...
 			{
 

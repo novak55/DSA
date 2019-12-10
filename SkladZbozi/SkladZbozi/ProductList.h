@@ -23,6 +23,9 @@ public:
 	// upravi hodnoty vybraneho produktu
 	bool EditProduct(int cislo, int cena, int pocet);
 
+	// vyhleda informace o vybranem produktu
+	bool FindProduct(int cislo);
+
 	// vytiskne seznam na standardni vystup
 	void PrintList() const;
 
