@@ -13,9 +13,10 @@ int menu()
 	printf("1 ... Nacti seznam produktu\n");
 	printf("2 ... Vlozit novy zaznam\n");
 	printf("3 ... Upravit zaznam\n");
-	printf("4 ... Vytisknou seznam produktu\n");
-	printf("5 ... Seradit produkty podle ...\n");
-	printf("6 ... Seradit produkty podle ...\n");
+	printf("4 ... Odebrat zaznam\n");
+	printf("5 ... Vytisknou seznam produktu\n");
+	printf("6 ... Spocitat celkovou cenu zbozi ...\n");
+	printf("7 ... Seradit produkty podle ...\n");
 	printf("0 ... KONEC\n\n");
 
 	int volba;
@@ -23,7 +24,7 @@ int menu()
 	{
 		printf("Zadej volbu: ");
 		scanf_s("%d", &volba);
-	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6);
+	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7);
 	return volba;
 }
 
@@ -31,6 +32,11 @@ int menu()
 
 int main()
 {
+	int cislo;
+	int cena;
+	int pocet;
+	bool seznamNacten = false;
+
 	ProductList * pList = new ProductList();
 	 int pole[][3] = { {1, 10, 1},{2, 20, 1},{3, 30, 1},{4, 40, 1},{5, 50, 1} }; // pole vstupnich udaju
 	 int n = 5; // pocet produktu ve vstupnim poli 
@@ -38,9 +44,7 @@ int main()
 //	int pole[][3] = { {1, 10, 1} }; // pole vstupnich udaju
 //	int n = 1; // pocet produktu ve vstupnim poli 
 
-	int cislo;
-	int cena;
-	int pocet;
+
 
 /*
 		ProductList mList;
@@ -77,9 +81,17 @@ int main()
 		{
 		case 1:
 			// nacist seznam
-		{
-			pList->MakeList(pole, n);
-		}
+			{
+				if (!seznamNacten) {
+					pList->MakeList(pole, n);
+					seznamNacten = true;
+					printf("Seznam produktu byl uspesne nacten. \n\n");
+				}
+				else {
+					printf("Seznam produktu nelze nacist podruhe! \n\n");
+				}
+
+			}
 			break;
 
 		case 2:
@@ -116,29 +128,48 @@ int main()
 		break;
 
 		case 4:
-			// tisk seznamu zbozi
-		{
-			printf("\nSEZNAM ZBOZI \n");
-			pList->PrintList();
-			printf("\n\n");
-		}
-			
+			// odstranit zaznam
+			{
+				printf("Zadejte cislo odebiraneho produktu: \n");
+				scanf_s("%d", &cislo);
+				if (pList->Remove(cislo)) {
+					printf("Produkt byl odebran! \n\n");
+				}
+				else {
+					printf("Produkt nebyl odebran! \n\n");
+				}
+			}
 			break;
 
 		case 5:
-			// sort
+			// tisk seznamu zbozi
+			{
+				printf("\nSEZNAM ZBOZI \n");
+				pList->PrintList();
+				printf("\n\n");
+			}
 			break;
 
 		case 6:
-			// sort
+			// vypocet celkove ceny zbozi
+			{
+				printf("Celkova suma ceny zbozi na sklade:\n");
+				printf("SUMA: %d Kc\n", pList->CountSummary());
+				printf("\n\n");
+			}
 			break;
+			case 7:
+				// serazeni zbozi podle ...
+			{
 
+			}
+		break;
 		}
 
 	} while (volba != 0);
 
 
-	//delete mList;
+	delete pList;
 
 
 
