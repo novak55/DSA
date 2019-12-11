@@ -4,7 +4,7 @@
 class ProductList
 {
 private:
-	Product *pHead; // ukazatel na hlavu seznamu
+	Product* pHead; // ukazatel na hlavu seznamu
 	int cislo;
 	int cena;
 	int pocet;
@@ -12,7 +12,6 @@ private:
 
 	// zadani hodnot polozky seznamu
 	void VlozitUdaje();
-
 
 
 public:
@@ -54,5 +53,9 @@ public:
 
 	//uložení dat do souboru
 	bool UlozitDataDoSoboru();
+
+	// zadání a kontrola vstupních dat pro celá èísla vìtší nebo rovna než požadované minimum 
+	int ZadatCiselnouHodnotu(int min);
+
 };
 

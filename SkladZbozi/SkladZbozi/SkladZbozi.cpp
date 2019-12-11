@@ -29,7 +29,7 @@ int menu()
 	do
 	{
 		printf("Zadej volbu: ");
-		scanf_s("%d", &volba);
+		volba = pList->ZadatCiselnouHodnotu(0);
 	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10);
 	return volba;
 }
@@ -54,9 +54,8 @@ int main()
 		case 1:
 			// import dat z CSV souboru ...
 			if (!seznamNacten) {
-				pList->ImportData();
-				seznamNacten = true;
-				printf("Seznam produktu byl uspesne nacten. \n\n");
+				seznamNacten = pList->ImportData();
+				if (seznamNacten) printf("Seznam produktu byl uspesne nacten. \n\n");
 			}
 			else {
 				printf("Seznam produktu nelze nacist podruhe! \n\n");
@@ -65,23 +64,23 @@ int main()
 		case 2:
 			// vlozit zbozi do skladu
 			pList->Add(0, 0, 0, "0") ?
-				cout << "Produkt vlozen do skladu." << endl
+				cout << "Produkt vlozen do skladu.\n" << endl
 				:
-				cout << "Chyba! Produkt se nepodarilo ulozit do kladu" << endl;
+				cout << "Chyba! Produkt se nepodarilo ulozit do skladu.\n" << endl;
 			break;
 
 		case 3:
 			// upravit zaznam
 			pList->EditProduct() ?
-				cout << "Produkt byl uspesne upraven." << endl
+				cout << "Produkt byl uspesne upraven.\n" << endl
 				:
-				cout << "Chyba! Produkt se nepodarilo upravit" << endl;
+				cout << "Chyba! Produkt se nepodarilo upravit.\n" << endl;
 			break;
 
 		case 4:
 			// odstranit zaznam
 			cout << "Zadejte cislo odebiraneho produktu: ";
-			scanf_s("%d", &cislo);
+			cislo = pList->ZadatCiselnouHodnotu(1);
 			pList->Remove(cislo) ?
 				printf("Produkt byl odebran! \n\n")
 				:
@@ -92,7 +91,7 @@ int main()
 			// vyhledat zbozi cislo
 		{
 			printf("Zadejte cislo hledaneho produktu: \n");
-			scanf_s("%d", &cislo);
+			cislo = pList->ZadatCiselnouHodnotu(1);
 			printf("Vysledek hledani: \n");
 			if (!pList->FindProduct(cislo)) {
 				printf("Hledane zbozi nebylo nalezeno! \n");

@@ -161,8 +161,7 @@ bool ProductList::FindProduct(int cislo)
 	while ((pTmp != NULL))
 	{
 		if (pTmp->cislo == cislo) {
-//			printf("Zbozi c.%d; cena: %d Kc; kusu: %d ks\n", pTmp->cislo, pTmp->cena, pTmp->pocet);
-			cout << "Zbozi: " << pTmp->popis << ", cislo:" << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
+			cout << "Zbozi: " << pTmp->popis << ", cislo: " << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
 			return true;
 		}
 		pTmp = pTmp->pNext;
@@ -175,7 +174,7 @@ void ProductList::PrintList() const
 	Product *pTmp = pHead;
 	while (pTmp != NULL)
 	{
-		cout << "Zbozi: " << pTmp->popis << ", cislo:" << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
+		cout << "Zbozi: " << pTmp->popis << ", cislo: " << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
 		pTmp = pTmp->pNext;
 	}
 }
@@ -243,30 +242,56 @@ bool ProductList::ImportData()
 		getline(dataInput, pocetS, ';');
 		getline(dataInput, popisS, '\n');
 
-/*		cout << "CISLO: " << cisloS << '\n';
-		cout << "CENA: " << cenaS << '\n';
-		cout << "POCET: " << pocetS << '\n';
-		cout << "NAZEV: " << popisS << endl;
-		soucet = stoi(cenaS) * stoi(pocetS);
-		cout << "SOUCET: " << soucet << '\n';
-		cout << "---------------" << '\n';*/
-		Add(stoi(cisloS), stoi(cenaS), stoi(pocetS), popisS);
-//		PrintList();
+		try
+		{
+			Add(stoi(cisloS), stoi(cenaS), stoi(pocetS), popisS);
+		}
+		catch (exception)
+		{
+			dataInput.close();
+			cout << "Sklad je prazdny, neni mozne nacist zadna data.\n" << endl;
+			return false;
+		}
+		PrintList();
+		dataInput.close();
+		return true;
 	}
-	dataInput.close();
-	return true;
+}
+
+int ProductList::ZadatCiselnouHodnotu(int min = 0) {
+	string s;
+	int i;
+	while (true)
+	{
+		try
+		{
+			cin >> s;
+			i = stoi(s);
+			if (i >= min)
+				return i;
+			else cout << "Zadana hodnota musi byt cele cislo vetsi nebo rovno " << min << ". Zadejte prosim znovu: ";
+		}
+		catch (invalid_argument & exception)
+		{
+			cout << "Nebylo zadano cislo. Zadejte prosim znovu: ";
+		}
+		catch (out_of_range & exception)
+		{
+			cout << "Cislo je prilis velke (nebo prilis male). Zadejte prosim znovu:  ";
+		}
+	}
+
 }
 
 void ProductList::VlozitUdaje() {
 	cout << "Zadejte cislo produktu: ";
-	cin >> cislo;
-	//scanf_s("%d", &cislo);
+	this->cislo = ZadatCiselnouHodnotu(1);
 	cout << "Zadejte cenu produktu: ";
-	scanf_s("%d", &cena);
+	this->cena = ZadatCiselnouHodnotu(1);
 	cout << "Zadejte pocet kusu produktu: ";
-	scanf_s("%d", &pocet);
+	this->pocet = ZadatCiselnouHodnotu(1);
 	cout << "Zadejte popis produktu: ";
-	getline(cin >> ws, popis);
+	getline(cin >> ws, this->popis);
 }
 
 bool ProductList::UlozitDataDoSoboru() {
