@@ -51,5 +51,8 @@ public:
 
 	// naimportuje data z externiho souboru
 	bool ImportData();
+
+	//uložení dat do souboru
+	bool UlozitDataDoSoboru();
 };
 

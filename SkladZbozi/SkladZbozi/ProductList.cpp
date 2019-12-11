@@ -70,7 +70,7 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 		while (pTmp->pNext != NULL) {
 
 			if (pTmp->cislo > this->cislo) {
-//				printf("%d\n", pTmp->cislo);
+				printf("%d\n", pTmp->cislo);
 				break;
 			}
 			pPred = pTmp;
@@ -87,7 +87,6 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 				pNovyProdukt->pNext = pTmp;
 				pHead = pNovyProdukt;
 			}
-	//		printf("Produkt byl vlozen\n");
 			return true;
 		}
 		if (pTmp->pNext == NULL) { // davame cislo na konec
@@ -99,21 +98,17 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 				pPred->pNext = pNovyProdukt;
 				pNovyProdukt->pNext = pTmp;
 			}
-//			printf("Produkt byl vlozen\n");
 			return true;
 		}
 		if (pPred == NULL) { // davame cislo na zacatek
 			pNovyProdukt->pNext = pTmp;
 			pHead = pNovyProdukt;
-//			printf("Produkt byl vlozen\n");
 			return true;
 		}
 		// prvek je vkladan mezi jine prvky
-			pPred->pNext = pNovyProdukt;
-			pNovyProdukt->pNext = pTmp;
-//			printf("Produkt byl vlozen\n");
-			return true;
-
+		pPred->pNext = pNovyProdukt;
+		pNovyProdukt->pNext = pTmp;
+		return true;
 	}
 	return false;
 }
@@ -167,7 +162,7 @@ bool ProductList::FindProduct(int cislo)
 	{
 		if (pTmp->cislo == cislo) {
 //			printf("Zbozi c.%d; cena: %d Kc; kusu: %d ks\n", pTmp->cislo, pTmp->cena, pTmp->pocet);
-			cout << "Zbozi " << pTmp->popis << ", cislo:" << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
+			cout << "Zbozi: " << pTmp->popis << ", cislo:" << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
 			return true;
 		}
 		pTmp = pTmp->pNext;
@@ -180,8 +175,7 @@ void ProductList::PrintList() const
 	Product *pTmp = pHead;
 	while (pTmp != NULL)
 	{
-//		printf("Zbozi c.%d; cena: %d Kc; kusu: %d ks\n", pTmp->cislo, pTmp->cena, pTmp->pocet);
-		cout << "Zbozi " << pTmp->popis << ", cislo:" << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
+		cout << "Zbozi: " << pTmp->popis << ", cislo:" << pTmp->cislo << ", cena: " << pTmp->cena << "Kc, kusu: " << pTmp->pocet << endl;
 		pTmp = pTmp->pNext;
 	}
 }
@@ -244,19 +238,20 @@ bool ProductList::ImportData()
 	string popisS;
 	while (dataInput.good()) {
 		int soucet = 0;
-		getline(dataInput, cisloS, ',');
-		getline(dataInput, cenaS, ',');
-		getline(dataInput, pocetS, ',');
+		getline(dataInput, cisloS, ';');
+		getline(dataInput, cenaS, ';');
+		getline(dataInput, pocetS, ';');
 		getline(dataInput, popisS, '\n');
 
-		cout << "CISLO: " << cisloS << '\n';
+/*		cout << "CISLO: " << cisloS << '\n';
 		cout << "CENA: " << cenaS << '\n';
 		cout << "POCET: " << pocetS << '\n';
 		cout << "NAZEV: " << popisS << endl;
 		soucet = stoi(cenaS) * stoi(pocetS);
 		cout << "SOUCET: " << soucet << '\n';
-		cout << "---------------" << '\n';
+		cout << "---------------" << '\n';*/
 		Add(stoi(cisloS), stoi(cenaS), stoi(pocetS), popisS);
+//		PrintList();
 	}
 	dataInput.close();
 	return true;
@@ -264,11 +259,33 @@ bool ProductList::ImportData()
 
 void ProductList::VlozitUdaje() {
 	cout << "Zadejte cislo produktu: ";
-	scanf_s("%d", &cislo);
+	cin >> cislo;
+	//scanf_s("%d", &cislo);
 	cout << "Zadejte cenu produktu: ";
 	scanf_s("%d", &cena);
 	cout << "Zadejte pocet kusu produktu: ";
 	scanf_s("%d", &pocet);
 	cout << "Zadejte popis produktu: ";
 	getline(cin >> ws, popis);
+}
+
+bool ProductList::UlozitDataDoSoboru() {
+	fstream soubor("data.csv", ios::out);
+	if (!soubor.is_open()) {
+		cout << "Chyba: Soubor neotevren!" << '\n';
+		return false;
+	}
+	Product* pTmp = pHead;
+	bool novyRadek = false;
+	while (pTmp != NULL) {
+		if (novyRadek)
+			soubor << endl; 
+		else novyRadek = true;
+		soubor << pTmp->cislo <<";" << pTmp->cena << ";" << pTmp->pocet << ";" << pTmp->popis;
+		pTmp = pTmp->pNext;
+	}
+
+	soubor.close();
+	cout << "\nData jsou ulozena\n" << endl;
+	return true;
 }

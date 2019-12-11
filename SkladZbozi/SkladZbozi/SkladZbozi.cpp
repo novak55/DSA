@@ -13,7 +13,7 @@ ProductList* pList = new ProductList();
 
 int menu()
 {
-	printf("1 ... Nacti seznam produktu\n");
+	printf("1 ... Nacist data z CSV\n");
 	printf("2 ... Vlozit novy zaznam\n");
 	printf("3 ... Upravit zaznam\n");
 	printf("4 ... Odebrat zaznam\n");
@@ -22,8 +22,7 @@ int menu()
 	printf("7 ... Spocitat celkovou cenu zbozi\n");
 	printf("8 ... Seradit produkty podle Ev. cisla VZESTUPNE\n");
 	printf("9 ... Seradit produkty podle Ev. cisla SESTUPNE\n");
-	printf("10 .. Nacist data z CSV\n");
-	cout << "11 .. Ulozit sklad do souboru" << endl;
+	cout << "10 .. Ulozit sklad do souboru" << endl;
 	printf("0 ... KONEC\n\n");
 
 	int volba;
@@ -31,7 +30,7 @@ int menu()
 	{
 		printf("Zadej volbu: ");
 		scanf_s("%d", &volba);
-	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10 && volba != 11);
+	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10);
 	return volba;
 }
 
@@ -41,8 +40,8 @@ int main()
 {
 	bool seznamNacten = false;
 
-//	 int pole[][3] = { {2, 20, 1}, {4, 40, 1}, {1, 10, 1},{3, 30, 1},{5, 50, 1} }; // pole vstupnich udaju
-	 int n = 5; // pocet produktu ve vstupnim poli 
+	//	 int pole[][3] = { {2, 20, 1}, {4, 40, 1}, {1, 10, 1},{3, 30, 1},{5, 50, 1} }; // pole vstupnich udaju
+	int n = 5; // pocet produktu ve vstupnim poli 
 
 	int volba;
 	int cislo;
@@ -53,20 +52,16 @@ int main()
 		switch (volba)
 		{
 		case 1:
-			// nacist seznam
-/*			{
-				if (!seznamNacten) {
-					pList->MakeList(pole, n);
-					seznamNacten = true;
-					printf("Seznam produktu byl uspesne nacten. \n\n");
-				}
-				else {
-					printf("Seznam produktu nelze nacist podruhe! \n\n");
-				}
-
+			// import dat z CSV souboru ...
+			if (!seznamNacten) {
+				pList->ImportData();
+				seznamNacten = true;
+				printf("Seznam produktu byl uspesne nacten. \n\n");
+			}
+			else {
+				printf("Seznam produktu nelze nacist podruhe! \n\n");
 			}
 			break;
-*/
 		case 2:
 			// vlozit zbozi do skladu
 			pList->Add(0, 0, 0, "0") ?
@@ -137,39 +132,14 @@ int main()
 		}
 		break;
 		case 10:
-			// import dat z CSV souboru ...
-			if (!seznamNacten) {
-				pList->ImportData();
-				seznamNacten = true;
-				printf("Seznam produktu byl uspesne nacten. \n\n");
-			}
-			else {
-				printf("Seznam produktu nelze nacist podruhe! \n\n");
-			}
-			break;
-		case 11:
-			//todo uložit do souboru CSV :)
+			// uložení do souboru CSV :)
+			pList->UlozitDataDoSoboru();
 			break;
 		}
 	} while (volba != 0);
 
+	// uloží všechna data do souboru při opuštění programu
+	pList->UlozitDataDoSoboru();
 
 	delete pList;
-
-
-
-
-
-	//return 0;
 }
-
-// Spuštění programu: Ctrl+F5 nebo nabídka Ladit > Spustit bez ladění
-// Ladění programu: F5 nebo nabídka Ladit > Spustit ladění
-
-// Tipy pro zahájení práce:
-//   1. K přidání nebo správě souborů použijte okno Průzkumník řešení.
-//   2. Pro připojení ke správě zdrojového kódu použijte okno Team Explorer.
-//   3. K zobrazení výstupu sestavení a dalších zpráv použijte okno Výstup.
-//   4. K zobrazení chyb použijte okno Seznam chyb.
-//   5. Pokud chcete vytvořit nové soubory kódu, přejděte na Projekt > Přidat novou položku. Pokud chcete přidat do projektu existující soubory kódu, přejděte na Projekt > Přidat existující položku.
-//   6. Pokud budete chtít v budoucnu znovu otevřít tento projekt, přejděte na Soubor > Otevřít > Projekt a vyberte příslušný soubor .sln.
