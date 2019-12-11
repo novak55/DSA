@@ -69,7 +69,7 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 	{
 		while (pTmp->pNext != NULL) {
 
-			if (pTmp->cislo > cislo) {
+			if (pTmp->cislo > this->cislo) {
 //				printf("%d\n", pTmp->cislo);
 				break;
 			}
@@ -79,7 +79,7 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 
 		if (pPred == NULL && pTmp->pNext == NULL) { // pouze jeden druh zbozi zatim vlozeny
 
-			if (pTmp->cislo < cislo) {
+			if (pTmp->cislo < this->cislo) {
 				pTmp->pNext = pNovyProdukt;
 				pNovyProdukt->pNext = NULL;
 			}
@@ -91,7 +91,7 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 			return true;
 		}
 		if (pTmp->pNext == NULL) { // davame cislo na konec
-			if (pTmp->cislo < cislo) {
+			if (pTmp->cislo < this->cislo) {
 				pTmp->pNext = pNovyProdukt;
 				pNovyProdukt->pNext = NULL;
 			}
