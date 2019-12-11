@@ -241,7 +241,7 @@ bool ProductList::ImportData()
 		getline(dataInput, cenaS, ';');
 		getline(dataInput, pocetS, ';');
 		getline(dataInput, popisS, '\n');
-
+		
 		try
 		{
 			Add(stoi(cisloS), stoi(cenaS), stoi(pocetS), popisS);
@@ -252,10 +252,10 @@ bool ProductList::ImportData()
 			cout << "Sklad je prazdny, neni mozne nacist zadna data.\n" << endl;
 			return false;
 		}
-		PrintList();
-		dataInput.close();
-		return true;
 	}
+	PrintList();
+	dataInput.close();
+	return true;
 }
 
 int ProductList::ZadatCiselnouHodnotu(int min = 0) {
