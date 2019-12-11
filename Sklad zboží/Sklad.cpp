@@ -14,7 +14,7 @@ Sklad::~Sklad()
 
 void Sklad::ZmenitNazevSkladu() {
 	cout << "Zadejte nazev skladu: ";
-	cin >> nazev;
+	getline(cin >> ws, nazev);
 }
 
 string Sklad::GetNazev() {

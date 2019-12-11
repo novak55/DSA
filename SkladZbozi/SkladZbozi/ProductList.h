@@ -5,23 +5,34 @@ class ProductList
 {
 private:
 	Product *pHead; // ukazatel na hlavu seznamu
+	int cislo;
+	int cena;
+	int pocet;
+	string popis;
+
+	// zadani hodnot polozky seznamu
+	void VlozitUdaje();
+
+
 
 public:
 	ProductList();
 	~ProductList();
 
-
 	// vytvori seznam z hodnot ulozenych v zadanem poli
-	void MakeList(int p[][3], int cnt);
+	//void MakeList(int p[][3], int cnt);
+
+	//import udaju z parametru
+	void NacistUdaje(int cislo, int cena, int pocet, string popis);
 
 	// prida prvek s cislem produktu
-	bool Add(int cislo, int cena, int pocet);
+	bool Add(int cislo, int cena, int pocet, string popis);
 
 	// odstrani prvek seznamu s cislem produktu
 	bool Remove(int value);
 
 	// upravi hodnoty vybraneho produktu
-	bool EditProduct(int cislo, int cena, int pocet);
+	bool EditProduct();
 
 	// vyhleda informace o vybranem produktu
 	bool FindProduct(int cislo);

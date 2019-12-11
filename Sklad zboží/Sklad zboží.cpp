@@ -18,8 +18,9 @@
 
 #include <iostream>
 #include <string>
-#include "menu.h"
+#include "Menu.h"
 #include "Sklad.h"
+#include "ProduktList.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ int main()
 
 	Menu* menu = new Menu(POCET_POLOZEK_MENU);
 	Sklad* sklad = new Sklad();
+	ProduktList* pList = new ProduktList();
 
 	//	Sklad* sklad = new ....
 	
@@ -38,8 +40,10 @@ int main()
 	menu->addPolozkuMenu("Odebrat polozku ze skaldu", 'O', 1);
 	menu->addPolozkuMenu("Zruseni polozky s danym klicem", 'Z', 2);
 	menu->addPolozkuMenu("Vypis prvku s danym klicem", 'V', 3);
-	menu->addPolozkuMenu("zmenit Sklad", 'S', 4);
-	menu->addPolozkuMenu("Konec SW", 'k', 10);
+	menu->addPolozkuMenu("zoBrazit sklad", 'B', 4);
+	menu->addPolozkuMenu("Cena zbozi na skladu", 'C', 5);
+	menu->addPolozkuMenu("zmenit Sklad", 'S', 5);
+	menu->addPolozkuMenu("Konec SW", 'K', 10);
 	
 	while (konec) {
 
@@ -58,12 +62,21 @@ int main()
 				break;
 			case 'p':
 			case 'P':
+				pList->ZadatNovouPolozku();
 				break;
 			case 'o':
 			case 'O':
 				break;
+			case 'b':
+			case 'B':
+				pList->ZobrazitPolozky();
+				break;
 			case 'z':
 			case 'Z':
+				break;
+			case 'c':
+			case 'C':
+				pList->ZobrazitHodnotuSkladu();
 				break;
 			case 's':
 			case 'S':

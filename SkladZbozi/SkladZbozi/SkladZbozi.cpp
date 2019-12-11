@@ -9,6 +9,7 @@
 
 using namespace std;
 
+ProductList* pList = new ProductList();
 
 int menu()
 {
@@ -21,7 +22,8 @@ int menu()
 	printf("7 ... Spocitat celkovou cenu zbozi\n");
 	printf("8 ... Seradit produkty podle Ev. cisla VZESTUPNE\n");
 	printf("9 ... Seradit produkty podle Ev. cisla SESTUPNE\n");
-	printf("10 ... Nacist data z CSV\n");
+	printf("10 .. Nacist data z CSV\n");
+	cout << "11 .. Ulozit sklad do souboru" << endl;
 	printf("0 ... KONEC\n\n");
 
 	int volba;
@@ -29,7 +31,7 @@ int menu()
 	{
 		printf("Zadej volbu: ");
 		scanf_s("%d", &volba);
-	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10);
+	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10 && volba != 11);
 	return volba;
 }
 
@@ -37,16 +39,14 @@ int menu()
 
 int main()
 {
-	int cislo;
-	int cena;
-	int pocet;
 	bool seznamNacten = false;
 
-	ProductList * pList = new ProductList();
-	 int pole[][3] = { {2, 20, 1}, {4, 40, 1}, {1, 10, 1},{3, 30, 1},{5, 50, 1} }; // pole vstupnich udaju
+//	 int pole[][3] = { {2, 20, 1}, {4, 40, 1}, {1, 10, 1},{3, 30, 1},{5, 50, 1} }; // pole vstupnich udaju
 	 int n = 5; // pocet produktu ve vstupnim poli 
 
 	int volba;
+	int cislo;
+
 	do
 	{
 		volba = menu();
@@ -54,7 +54,7 @@ int main()
 		{
 		case 1:
 			// nacist seznam
-			{
+/*			{
 				if (!seznamNacten) {
 					pList->MakeList(pole, n);
 					seznamNacten = true;
@@ -66,52 +66,31 @@ int main()
 
 			}
 			break;
-
+*/
 		case 2:
 			// vlozit zbozi do skladu
-		{
-			printf("Zadejte cislo produktu: \n");
-			scanf_s("%d", &cislo);
-			printf("Zadejte cenu produktu: \n");
-			scanf_s("%d", &cena);
-			printf("Zadejte pocet kusu produktu: \n");
-			scanf_s("%d", &pocet);
-			pList->Add(cislo, cena, pocet);
-			printf("Produkt zadan. \n");
-		}
+			pList->Add(0, 0, 0, "0") ?
+				cout << "Produkt vlozen do skladu." << endl
+				:
+				cout << "Chyba! Produkt se nepodarilo ulozit do kladu" << endl;
 			break;
 
 		case 3:
 			// upravit zaznam
-		{
-			printf("Zadejte cislo upravovaneho produktu: \n");
-			scanf_s("%d", &cislo);
-			printf("Zadejte novou cenu produktu: \n");
-			scanf_s("%d", &cena);
-			printf("Zadejte novy pocet kusu produktu: \n");
-			scanf_s("%d", &pocet);
-
-			if (pList->EditProduct(cislo, cena, pocet)) {
-				printf("Produkt byl uspesne upraven. \n\n");
-			}
-			else {
-				printf("Produkt nebyl upraven!! \n\n");
-			}
-		}
-		break;
+			pList->EditProduct() ?
+				cout << "Produkt byl uspesne upraven." << endl
+				:
+				cout << "Chyba! Produkt se nepodarilo upravit" << endl;
+			break;
 
 		case 4:
 			// odstranit zaznam
-			{
-				printf("Zadejte cislo odebiraneho produktu: \n");
-				scanf_s("%d", &cislo);
-				if (pList->Remove(cislo)) {
-					printf("Produkt byl odebran! \n\n");
-				}
-				else {
-					printf("Produkt nebyl odebran! \n\n");
-				}
-			}
+			cout << "Zadejte cislo odebiraneho produktu: ";
+			scanf_s("%d", &cislo);
+			pList->Remove(cislo) ?
+				printf("Produkt byl odebran! \n\n")
+				:
+				printf("Produkt nebyl odebran! \n\n");
 			break;
 
 		case 5:
@@ -123,55 +102,55 @@ int main()
 			if (!pList->FindProduct(cislo)) {
 				printf("Hledane zbozi nebylo nalezeno! \n");
 			}
-			
+
 			printf("\n\n");
 		}
 		break;
 
 		case 6:
 			// tisk seznamu zbozi
-			{
-				printf("\nSEZNAM ZBOZI \n");
-				pList->PrintList();
-				printf("\n\n");
-			}
-			break;
+		{
+			printf("\nSEZNAM ZBOZI \n");
+			pList->PrintList();
+			printf("\n\n");
+		}
+		break;
 
 		case 7:
 			// vypocet celkove ceny zbozi
-			{
-				printf("Celkova suma ceny zbozi na sklade:\n");
-				printf("SUMA: %d Kc\n", pList->CountSummary());
-				printf("\n\n");
-			}
-			break;
+		{
+			printf("Celkova suma ceny zbozi na sklade:\n");
+			printf("SUMA: %d Kc\n", pList->CountSummary());
+			printf("\n\n");
+		}
+		break;
 		case 8:
 			// serazeni zbozi podle ...
-			{
-				pList->SortByKeyAsc();
-			}
-			break;
+		{
+			pList->SortByKeyAsc();
+		}
+		break;
 		case 9:
 			// serazeni zbozi podle ...
-			{
-				pList->SortByKeyDes();
-			}
-			break;
+		{
+			pList->SortByKeyDes();
+		}
+		break;
 		case 10:
 			// import dat z CSV souboru ...
-			{
-				if (!seznamNacten) {
-					pList->ImportData();
-					seznamNacten = true;
-					printf("Seznam produktu byl uspesne nacten. \n\n");
-				}
-				else {
-					printf("Seznam produktu nelze nacist podruhe! \n\n");
-				}
+			if (!seznamNacten) {
+				pList->ImportData();
+				seznamNacten = true;
+				printf("Seznam produktu byl uspesne nacten. \n\n");
+			}
+			else {
+				printf("Seznam produktu nelze nacist podruhe! \n\n");
 			}
 			break;
+		case 11:
+			//todo uložit do souboru CSV :)
+			break;
 		}
-
 	} while (volba != 0);
 
 
