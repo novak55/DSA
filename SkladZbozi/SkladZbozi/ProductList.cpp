@@ -7,12 +7,18 @@
 
 using namespace std;
 
+/**
+ * Konstruktor spojovaného seznamu
+ */
 ProductList::ProductList()
 {
 	pHead = NULL;
 }
 
 
+/**
+ * Destruktor spojovaného seznamu
+ */
 ProductList::~ProductList()
 {
 	while (pHead != NULL)
@@ -23,25 +29,13 @@ ProductList::~ProductList()
 	}
 }
 
-// Místo tohoto naèítání dat ze souboru
-/* 
-void ProductList::MakeList(int p [][3], int cnt)
-{
-	Product *pTmp, *pLast;
-	pLast = pHead;
-	for (int i = 0; i < cnt; i++)
-	{
-		pTmp = new Product(p[i][0], p[i][1], p[i][2]);
-		if (pHead == NULL)
-			pHead = pLast = pTmp;
-		else
-		{
-			pLast->pNext = pTmp;
-			pLast = pTmp;
-		}
-	}
-}
-*/
+/**
+ * Provede nastavení vložených údajù pro položku zboží na skladì
+ * @param cislo Evidenèní (identifikaèní) èíslo zboží
+ * @param cena  je cena daného kusu zboží na skladì
+ * @param pocet zobrazuje poèet kusù zboží na skladì
+ * @param popis textový popis daného zboží
+ */
 void ProductList::NacistUdaje(int cislo, int cena, int pocet, string popis)
 {
 	this->cislo = cislo;
@@ -50,15 +44,21 @@ void ProductList::NacistUdaje(int cislo, int cena, int pocet, string popis)
 	this->popis = popis;
 }
 
+/**
+ * Provede pøidání záznamu o zboží na skladì
+ * @param cislo Evidenèní (identifikaèní) èíslo zboží
+ * @param cena  je cena daného kusu zboží na skladì
+ * @param pocet zobrazuje poèet kusù zboží na skladì
+ * @param popis textový popis daného zboží
+ * @return Informace o úspìchu pøidání záznamu o zboží
+ */
 bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 {
 	cislo == 0 ? VlozitUdaje() : NacistUdaje(cislo, cena, pocet, popis);
-
 	Product *pNovyProdukt = new Product(this->cislo, this->cena, this->pocet, this->popis);
-
 	Product *pPred = NULL; // ukazatel na predchazejici prvek
-
 	Product *pTmp = pHead; // ukazatel na aktualni (nasledujici) prvek
+
 	if (pHead == NULL)
 	{
 		// prazdny seznam
@@ -113,6 +113,11 @@ bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 	return false;
 }
 
+/**
+ * Provede odebrání záznamu o zboží na skladì podle jeho evidenèního èísla
+ * @param cislo Evidenèní (identifikaèní) èíslo zboží
+ * @return Informace o úspìchu odebrání záznamu o zboží
+ */
 bool ProductList::Remove(int cislo)
 {
 	Product *pPred = NULL; // ukazatel na predchazejici prvek
@@ -138,6 +143,10 @@ bool ProductList::Remove(int cislo)
 		return false;
 }
 
+/**
+ * Provede editaci záznamu o zboží na skladì
+ * @return Informace o úspìchu provedení úpravy záznamu
+ */
 bool ProductList::EditProduct()
 { 
 	VlozitUdaje();
@@ -155,6 +164,11 @@ bool ProductList::EditProduct()
 	return false;
 }
 
+/**
+ * Provede vyhledání a zobrazení informací o zboží na skladì podle jeho evidenèního èísla
+ * @param cislo Evidenèní (identifikaèní) èíslo zboží
+ * @return Informace o existenci záznamu o zboží
+ */
 bool ProductList::FindProduct(int cislo)
 {
 	Product *pTmp = pHead; // ukazatel na aktualni (nasledujici) prvek
@@ -169,7 +183,11 @@ bool ProductList::FindProduct(int cislo)
 	return false;
 }
 
-void ProductList::PrintList() const
+/**
+ * Provede výpis informací o všech položkách zboží na skladì
+ * Zobrazí název zboží, evidenèní èíslo, cenu za kus a poèet kusù
+ */
+void ProductList::PrintList()
 {
 	Product *pTmp = pHead;
 	while (pTmp != NULL)
@@ -179,7 +197,10 @@ void ProductList::PrintList() const
 	}
 }
 
-
+/**
+ * Provede výpoèet celkové sumy ceny zboží na skladì
+ * @return Celková suma ceny zboží na skladì
+ */
 int ProductList::CountSummary()
 {
 	int summary = 0; // celkova cena zbozi na sklade
@@ -192,6 +213,9 @@ int ProductList::CountSummary()
 	return summary;
 }
 
+/**
+ * Provede seøazení produktù ve spojovaném seznamu vzestupnì podle hodnoty klíèe
+ */
 void ProductList::SortByKeyAsc()
 {
 	Product * j;
@@ -208,6 +232,9 @@ void ProductList::SortByKeyAsc()
 	}
 }
 
+/**
+ * Provede seøazení produktù ve spojovaném seznamu sestupnì podle hodnoty klíèe
+ */
 void ProductList::SortByKeyDes()
 {
 	Product * j;
@@ -224,6 +251,10 @@ void ProductList::SortByKeyDes()
 	}
 }
 
+/**
+ * Provede import dat z externího souboru do spojovaného seznamu
+ * @return Informace o úspìchu provedení importu dat
+ */
 bool ProductList::ImportData()
 {
 	ifstream dataInput("data.csv");
@@ -258,6 +289,10 @@ bool ProductList::ImportData()
 	return true;
 }
 
+/**
+ * TODO
+ *
+ */
 int ProductList::ZadatCiselnouHodnotu(int min = 0) {
 	string s;
 	int i;
@@ -283,6 +318,10 @@ int ProductList::ZadatCiselnouHodnotu(int min = 0) {
 
 }
 
+
+/**
+ * TODO
+ */
 void ProductList::VlozitUdaje() {
 	cout << "Zadejte cislo produktu: ";
 	this->cislo = ZadatCiselnouHodnotu(1);
@@ -294,7 +333,12 @@ void ProductList::VlozitUdaje() {
 	getline(cin >> ws, this->popis);
 }
 
-bool ProductList::UlozitDataDoSoboru() {
+
+/**
+ * Provede export dat ze spojovaného seznamu zboží na skladì do externího souboru
+ * @return Informace o úspìchu provedení exportu dat
+ */
+bool ProductList::ExportData() {
 	fstream soubor("data.csv", ios::out);
 	if (!soubor.is_open()) {
 		cout << "Chyba: Soubor neotevren!" << '\n';
