@@ -18,9 +18,6 @@ public:
 	ProductList();
 	~ProductList();
 
-	// vytvori seznam z hodnot ulozenych v zadanem poli
-	//void MakeList(int p[][3], int cnt);
-
 	//import udaju z parametru
 	void NacistUdaje(int cislo, int cena, int pocet, string popis);
 
@@ -37,7 +34,7 @@ public:
 	bool FindProduct(int cislo);
 
 	// vytiskne seznam na standardni vystup
-	void PrintList() const;
+	void PrintList();
 
 	// spocita celkovou hodnotu zbozi na sklade
 	int CountSummary();
@@ -52,7 +49,7 @@ public:
 	bool ImportData();
 
 	//uložení dat do souboru
-	bool UlozitDataDoSoboru();
+	bool ExportData();
 
 	// zadání a kontrola vstupních dat pro celá èísla vìtší nebo rovna než požadované minimum 
 	int ZadatCiselnouHodnotu(int min);
