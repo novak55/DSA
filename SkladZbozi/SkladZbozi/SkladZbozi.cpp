@@ -20,8 +20,8 @@ int menu()
 	printf("5 ... Najit zbozi\n");
 	printf("6 ... Vytisknou seznam produktu\n");
 	printf("7 ... Spocitat celkovou cenu zbozi\n");
-	printf("8 ... Seradit produkty podle Ev. cisla VZESTUPNE\n");
-	printf("9 ... Seradit produkty podle Ev. cisla SESTUPNE\n");
+	printf("8 ... Seradit produkty podle Ev. cisla vzestupne\n");
+	printf("9 ... Seradit produkty podle Ev. cisla sestupne\n");
 	cout << "10 .. Ulozit sklad do souboru" << endl;
 	printf("0 ... KONEC\n\n");
 
@@ -39,10 +39,6 @@ int menu()
 int main()
 {
 	bool seznamNacten = false;
-
-	//	 int pole[][3] = { {2, 20, 1}, {4, 40, 1}, {1, 10, 1},{3, 30, 1},{5, 50, 1} }; // pole vstupnich udaju
-	int n = 5; // pocet produktu ve vstupnim poli 
-
 	int volba;
 	int cislo;
 
@@ -122,23 +118,25 @@ int main()
 			// serazeni zbozi podle ...
 		{
 			pList->SortByKeyAsc();
+			printf("\nZbozi bylo serazeno vzestupne podle klice.\n\n");
 		}
 		break;
 		case 9:
 			// serazeni zbozi podle ...
 		{
 			pList->SortByKeyDes();
+			printf("\nZbozi bylo serazeno sestupne podle klice.\n\n");
 		}
 		break;
 		case 10:
 			// uložení do souboru CSV :)
-			pList->UlozitDataDoSoboru();
+			pList->ExportData();
 			break;
 		}
 	} while (volba != 0);
 
 	// uloží všechna data do souboru při opuštění programu
-	pList->UlozitDataDoSoboru();
+	pList->ExportData();
 
 	delete pList;
 }
