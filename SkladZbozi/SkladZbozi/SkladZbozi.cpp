@@ -19,7 +19,7 @@ int menu()
 	printf("3 ... Upravit zaznam\n");
 	printf("4 ... Odebrat zaznam\n");
 	printf("5 ... Najit zbozi\n");
-	printf("6 ... Vytisknou seznam produktu\n");
+	printf("6 ... Vytisknout seznam produktu\n");
 	printf("7 ... Spocitat celkovou cenu zbozi\n");
 	printf("8 ... Seradit produkty podle Ev. cisla vzestupne\n");
 	printf("9 ... Seradit produkty podle Ev. cisla sestupne\n");
