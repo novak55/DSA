@@ -1,2 +1,8 @@
-﻿  SkladZbozi.cpp
+﻿  Product.cpp
+  ProductList.cpp
+D:\Moje studium\DSA\Seminární práce\DSA\SkladZbozi\SkladZbozi\ProductList.cpp(310,29): warning C4101: exception: neodkazovaná lokální proměnná
+  SkladZbozi.cpp
+  Generování kódu...
+D:\Moje studium\DSA\Seminární práce\DSA\SkladZbozi\SkladZbozi\ProductList.cpp(314,25): warning C4101: exception: neodkazovaná lokální proměnná
+  LINK : Soubor D:\Moje studium\DSA\Seminární práce\DSA\SkladZbozi\Debug\SkladZbozi.exe se nenašel nebo se při posledním přírůstkovém propojování nesestavil. Provádí se úplné propojení.
   SkladZbozi.vcxproj -> D:\Moje studium\DSA\Seminární práce\DSA\SkladZbozi\Debug\SkladZbozi.exe

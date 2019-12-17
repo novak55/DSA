@@ -1,7 +1,4 @@
-﻿// SkladZbozi.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
-//
-
-#include "pch.h"
+﻿#include "pch.h"
 #include <iostream>
 #include <fstream>
 #include "ProductList.h"
@@ -11,6 +8,10 @@ using namespace std;
 
 ProductList* pList = new ProductList();
 
+/**
+* Zobrazení položek a hodnot voleb menu
+* @return Zadanou hodnotu menu na vsd. vstupu
+*/
 int menu()
 {
 	printf("1 ... Nacist data z CSV\n");
@@ -29,13 +30,15 @@ int menu()
 	do
 	{
 		printf("Zadej volbu: ");
-		volba = pList->ZadatCiselnouHodnotu(0);
+		volba = pList->ReadNumericValue(0);
 	} while (volba != 0 && volba != 1 && volba != 2 && volba != 3 && volba != 4 && volba != 5 && volba != 6 && volba != 7 && volba != 8 && volba != 9 && volba != 10);
 	return volba;
 }
 
 
-
+/**
+* Řídí běh programu dle zvoleného menu
+*/
 int main()
 {
 	bool seznamNacten = false;
@@ -76,7 +79,7 @@ int main()
 		case 4:
 			// odstranit zaznam
 			cout << "Zadejte cislo odebiraneho produktu: ";
-			cislo = pList->ZadatCiselnouHodnotu(1);
+			cislo = pList->ReadNumericValue(1);
 			pList->Remove(cislo) ?
 				printf("Produkt byl odebran! \n\n")
 				:
@@ -87,7 +90,7 @@ int main()
 			// vyhledat zbozi cislo
 		{
 			printf("Zadejte cislo hledaneho produktu: \n");
-			cislo = pList->ZadatCiselnouHodnotu(1);
+			cislo = pList->ReadNumericValue(1);
 			printf("Vysledek hledani: \n");
 			if (!pList->FindProduct(cislo)) {
 				printf("Hledane zbozi nebylo nalezeno! \n");
@@ -139,4 +142,6 @@ int main()
 	pList->ExportData();
 
 	delete pList;
+
+	return 1;
 }

@@ -11,7 +11,7 @@ private:
 	string popis;
 
 	// zadani hodnot polozky seznamu
-	void VlozitUdaje();
+	void InsertItemValues();
 
 
 public:
@@ -19,7 +19,7 @@ public:
 	~ProductList();
 
 	//import udaju z parametru
-	void NacistUdaje(int cislo, int cena, int pocet, string popis);
+	void SetData(int cislo, int cena, int pocet, string popis);
 
 	// prida prvek s cislem produktu
 	bool Add(int cislo, int cena, int pocet, string popis);
@@ -52,7 +52,7 @@ public:
 	bool ExportData();
 
 	// zadání a kontrola vstupních dat pro celá èísla vìtší nebo rovna než požadované minimum 
-	int ZadatCiselnouHodnotu(int min);
+	int ReadNumericValue(int min);
 
 };
 

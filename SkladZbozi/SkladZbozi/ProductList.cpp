@@ -36,7 +36,7 @@ ProductList::~ProductList()
  * @param pocet zobrazuje poèet kusù zboží na skladì
  * @param popis textový popis daného zboží
  */
-void ProductList::NacistUdaje(int cislo, int cena, int pocet, string popis)
+void ProductList::SetData(int cislo, int cena, int pocet, string popis)
 {
 	this->cislo = cislo;
 	this->cena = cena;
@@ -54,7 +54,7 @@ void ProductList::NacistUdaje(int cislo, int cena, int pocet, string popis)
  */
 bool ProductList::Add(int cislo, int cena, int pocet, string popis)
 {
-	cislo == 0 ? VlozitUdaje() : NacistUdaje(cislo, cena, pocet, popis);
+	cislo == 0 ? InsertItemValues() : SetData(cislo, cena, pocet, popis);
 	Product *pNovyProdukt = new Product(this->cislo, this->cena, this->pocet, this->popis);
 	Product *pPred = NULL; // ukazatel na predchazejici prvek
 	Product *pTmp = pHead; // ukazatel na aktualni (nasledujici) prvek
@@ -149,7 +149,7 @@ bool ProductList::Remove(int cislo)
  */
 bool ProductList::EditProduct()
 { 
-	VlozitUdaje();
+	InsertItemValues();
 	Product *pTmp = pHead; // ukazatel na aktualni (nasledujici) prvek
 	while ((pTmp != NULL))
 	{
@@ -290,10 +290,11 @@ bool ProductList::ImportData()
 }
 
 /**
- * TODO
- *
- */
-int ProductList::ZadatCiselnouHodnotu(int min = 0) {
+* Naète èíselnou hodnutu, která musí být vìtší než požadované minimum ze standardního vstupu 
+* @param min minimální požadovaná hodnota zadávaného èísla
+* @return vrátí hodnotu zadanou na standardním vstupu
+*/
+int ProductList::ReadNumericValue(int min = 0) {
 	string s;
 	int i;
 	while (true)
@@ -320,15 +321,15 @@ int ProductList::ZadatCiselnouHodnotu(int min = 0) {
 
 
 /**
- * TODO
+ * Provede naètení záznamù o zboží ze standardního vstupu
  */
-void ProductList::VlozitUdaje() {
+void ProductList::InsertItemValues() {
 	cout << "Zadejte cislo produktu: ";
-	this->cislo = ZadatCiselnouHodnotu(1);
+	this->cislo = ReadNumericValue(1);
 	cout << "Zadejte cenu produktu: ";
-	this->cena = ZadatCiselnouHodnotu(1);
+	this->cena = ReadNumericValue(1);
 	cout << "Zadejte pocet kusu produktu: ";
-	this->pocet = ZadatCiselnouHodnotu(1);
+	this->pocet = ReadNumericValue(1);
 	cout << "Zadejte popis produktu: ";
 	getline(cin >> ws, this->popis);
 }
